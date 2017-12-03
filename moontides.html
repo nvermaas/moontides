@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Moontides</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <script src="moontides_datamodel.js"></script>
+    <script src="moontides_api.js"></script>
+    <link rel="stylesheet" type="text/css" href="mystyle.css">
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1 class="shadow">Moontides</h1>
+        <div class="infobox">
+            Enter year<input id="year_textbox" type="text" name="year" value = "2018">
+            <button onclick="getMoonPhases(document.getElementById('year_textbox').value)">Moon Phases </button>
+            <button onclick="getNewMoons(document.getElementById('year_textbox').value)">New Moons</button><BR>
+        </div>
+        <hr>
+
+        <div id="moontides"></div>
+
+    </div>
+
+</body>
+</html>
