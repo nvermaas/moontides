@@ -80,5 +80,8 @@ function myNewMoonsCB(my_result, my_status, myFilter) {
     moontides.addDayOfTheYear();
     moontides.addCourseUnit();
 
+    moontides.drawMoon("canvas")
+
     moontides.showData("moontides");
+
 }

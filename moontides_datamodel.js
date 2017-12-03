@@ -140,7 +140,7 @@ function MoonTides(){
 
     this.addQuarter = function(moonname, season, i) {
         j = names.indexOf(moonname)
-        this.myList[i].name = names[j] + season;
+        this.myList[i].name = names[j];
         this.myList[i].url = urls[j++]
 
         this.myList[i+1].name = names[j];
@@ -217,10 +217,77 @@ function MoonTides(){
         document.getElementById(tagOutput).innerHTML = this.myOutput;
     }
 
-    // callback function for foreach
-    function showPhase(item,index){
-        console.log("showPhase: "+item);
-        item.showData("dataproduct_list")
+
+    this.drawMoon = function(tagOutput) {
+    // https://www.w3schools.com/graphics/canvas_clock_numbers.asp
+
+        function drawNumbers(ctx, radius, myList) {
+            var ang;
+            var num;
+            ctx.font = radius*0.15 + "px arial";
+            ctx.textBaseline="middle";
+            ctx.textAlign="center";
+            for (i = 0; i < myList.length; i++) {
+                position = myList[i].day * 365 / 360
+                ang = position * Math.PI / 180;
+                ctx.rotate(ang);
+                ctx.translate(0, -radius*0.85);
+                ctx.rotate(-ang);
+
+                ctx.font="Bold 14px Arial";
+                ctx.fillStyle = 'red';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(myList[i].name, 0);
+
+                ctx.font="Bold 12px Arial";
+                ctx.fillStyle = 'green';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(myList[i].date, 0);
+
+                // ctx.fillText(num.toString(), 0, 0);
+                ctx.rotate(ang);
+                ctx.translate(0, radius*0.85);
+                ctx.rotate(-ang);
+            }
+        }
+
+        function drawFace(ctx, radius) {
+            var grad;
+
+            ctx.beginPath();
+            ctx.arc(0, 0, radius, 0, 2*Math.PI);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+
+            grad = ctx.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
+            grad.addColorStop(0, '#333');
+            grad.addColorStop(0.5, 'white');
+            grad.addColorStop(1, '#333');
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = radius*0.1;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
+            ctx.fillStyle = '#333';
+            ctx.fill();
+        }
+
+        function drawClock(myList) {
+            ctx.arc(0, 0, radius, 0 , 2*Math.PI);
+            ctx.fillStyle = "white";
+            ctx.fill();
+            drawFace(ctx, radius);
+            drawNumbers(ctx, radius, myList);
+        }
+
+        var canvas = document.getElementById(tagOutput);
+        var ctx = canvas.getContext("2d");
+        var radius = canvas.height / 2;
+        ctx.translate(radius, radius);
+        radius = radius * 0.90
+
+        drawClock(this.myList);
     }
 }
 // ======================================================================
