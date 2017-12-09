@@ -57,7 +57,7 @@ const urls = [
 ]
 
 function getTableHeader() {
-    myOutput = "<table id=\"geel\"+><tr><th>Phase</th><th>Date</th><th>Name</th><th>Day</th></tr>";
+    myOutput = "<table id=\"geel\"+><tr><th>Moon</th><th>Date</th></tr>";
     return myOutput;
     //document.getElementById(tagOutput).innerHTML = myOutput;
 }
@@ -80,7 +80,7 @@ function Phase() {
     }
 
     this.getShowData = function(){
-        myOutput = "<tr><td>"+this.phase + "</td><td>" + this.date + "</td><td>" + "<a href = \""+this.url+"\">" +this.name + "</a>" + "</td><td>" + this.day + "</td></tr>";
+        myOutput = "<tr><td>" + "<a href = \""+this.url+"\">" +this.name + "</a>" + "</td><td>" + this.date + "</td></tr>";
 
 
         return myOutput;
@@ -203,8 +203,6 @@ function MoonTides(){
         }
     }
 
-
-
     this.showData = function(tagOutput){
         this.myOutput = getTableHeader();
         for (i = 0; i < this.myList.length; i++) {
@@ -218,76 +216,161 @@ function MoonTides(){
     }
 
 
-    this.drawMoon = function(tagOutput) {
+    this.drawMoon = function(year, tagOutput) {
     // https://www.w3schools.com/graphics/canvas_clock_numbers.asp
+        var canvas = document.getElementById(tagOutput);
+        var context = canvas.getContext("2d");
+        var radius = canvas.height / 2;
 
-        function drawNumbers(ctx, radius, myList) {
+        function drawNumbers(context, radius, myList) {
             var ang;
             var num;
-            ctx.font = radius*0.15 + "px arial";
-            ctx.textBaseline="middle";
-            ctx.textAlign="center";
+            context.font = radius*0.15 + "px arial";
+            context.textBaseline="middle";
+            context.textAlign="center";
             for (i = 0; i < myList.length; i++) {
+
                 position = myList[i].day * 365 / 360
                 ang = position * Math.PI / 180;
-                ctx.rotate(ang);
-                ctx.translate(0, -radius*0.85);
-                ctx.rotate(-ang);
+                context.rotate(ang);
+                context.translate(0, -radius*0.80);
+                context.rotate(-ang);
 
-                ctx.font="Bold 14px Arial";
-                ctx.fillStyle = 'red';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(myList[i].name, 0);
+                myOffset = 0
+                if (i==12) {
+                    myOffset = 30
+                }
 
-                ctx.font="Bold 12px Arial";
-                ctx.fillStyle = 'green';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(myList[i].date, 0);
+                context.font="Bold 14px Arial";
+                context.fillStyle = 'green';
+                context.textBaseline = 'middle';
+
+                context.fillText(myList[i].name, 0, 0 - myOffset);
+
+                context.font="12px Arial";
+                context.fillStyle = 'black';
+                context.textBaseline = 'middle';
+                context.fillText(myList[i].date, 0, 15 - myOffset);
 
                 // ctx.fillText(num.toString(), 0, 0);
-                ctx.rotate(ang);
-                ctx.translate(0, radius*0.85);
-                ctx.rotate(-ang);
+                context.rotate(ang);
+                context.translate(0, radius*0.80);
+                context.rotate(-ang);
             }
         }
 
-        function drawFace(ctx, radius) {
-            var grad;
+        function drawSeasons(context, radius) {
+            y = new Date("2017 Dec 21")
+            d = getDayOfTheYear(y)
+            console.log('drawSeasons midwinter '+d)
+            drawDay(d, 'blue')
 
-            ctx.beginPath();
-            ctx.arc(0, 0, radius, 0, 2*Math.PI);
-            ctx.fillStyle = 'white';
-            ctx.fill();
-
-            grad = ctx.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
-            grad.addColorStop(0, '#333');
-            grad.addColorStop(0.5, 'white');
-            grad.addColorStop(1, '#333');
-            ctx.strokeStyle = grad;
-            ctx.lineWidth = radius*0.1;
-            ctx.stroke();
-
-            ctx.beginPath();
-            ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
-            ctx.fillStyle = '#333';
-            ctx.fill();
         }
 
-        function drawClock(myList) {
-            ctx.arc(0, 0, radius, 0 , 2*Math.PI);
-            ctx.fillStyle = "white";
-            ctx.fill();
-            drawFace(ctx, radius);
-            drawNumbers(ctx, radius, myList);
+        function drawDay(day, color, label) {
+            position = day * 365 / 360
+            ang = position * Math.PI / 180;
+            context.rotate(ang);
+            context.translate(0, -radius * 0.99);
+            context.rotate(-ang);
+
+            context.font = "Bold 14px Arial";
+            context.fillStyle = 'red';
+            context.textBaseline = 'middle';
+
+            context.beginPath();
+            context.arc(0, 0, 3, 0, 2 * Math.PI, false);
+            context.fillStyle = color;
+            context.fill();
+
+            if (label != undefined) {
+                context.font = "12px Arial";
+                context.fillStyle = 'black';
+                context.textBaseline = 'middle';
+                context.fillText(label, 0, 0);
+            }
+
+            context.rotate(ang);
+            context.translate(0, radius * 0.99);
+            context.rotate(-ang);
         }
 
-        var canvas = document.getElementById(tagOutput);
-        var ctx = canvas.getContext("2d");
-        var radius = canvas.height / 2;
-        ctx.translate(radius, radius);
-        radius = radius * 0.90
+        function drawToday() {
+            now = new Date()
+            currentYear = now.getFullYear();
+            if (year == currentYear) {
+                day = getDayOfTheYear(now)
+                drawDay(day, 'red')
+            }
+        }
 
-        drawClock(this.myList);
+        function drawMoonDays(myList) {
+            for (i = 0; i < myList.length; i++) {
+                console.log('day = '+ myList[i].day)
+                drawDay(myList[i].day, 'darkgreen')
+            }
+
+        }
+
+        function drawLines(context, radius) {
+            const factor = 0.707
+            context.strokeStyle = '#808080';
+
+            context.beginPath();
+            context.moveTo(0, radius);
+            context.lineTo(0, -radius);
+            context.stroke();
+
+            context.beginPath();
+            context.moveTo(radius, 0);
+            context.lineTo(-radius, 0);
+            context.stroke();
+
+/*
+            context.beginPath();
+            context.moveTo(factor*radius, factor*radius);
+            context.lineTo(factor*-radius, factor*-radius);
+            context.stroke();
+
+            context.beginPath();
+            context.moveTo(factor*-radius, factor*radius);
+            context.lineTo(factor*radius, factor*-radius);
+            context.stroke();
+*/
+        }
+
+        function drawWheel(myList) {
+            context.arc(0, 0, radius, 0 , 2*Math.PI);
+            context.fillStyle = "#EAFCE8";
+            context.fill();
+
+            drawLines(context, radius)
+            // drawSeasons()
+            drawNumbers(context, radius, myList);
+          }
+
+        function drawImage() {
+            var imageObj = new Image();
+
+            imageObj.onload = function() {
+                // context.drawImage(imageObj,-230, -210, 500, 375);
+                // context.drawImage(imageObj,10, 65, 500, 375); // canvas height = 500
+                context.drawImage(imageObj,60, 115, 500, 375); // canvas height = 600
+                // drawClock(this.myList)
+            };
+            imageObj.src = 'http://uilennest.net/static/moontides/moon.png';
+        }
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.translate(radius, radius);
+
+        drawImage()
+        drawWheel(this.myList);
+
+        drawToday();
+        drawMoonDays(this.myList)
+
+        context.setTransform(1, 0, 0, 1, 0, 0);
     }
 }
 // ======================================================================

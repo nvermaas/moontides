@@ -3,6 +3,9 @@
 <head>
     <title>Moontides</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta tag="by Nico Vermaas 2017">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
@@ -13,24 +16,47 @@
     <script src="moontides_datamodel.js"></script>
     <script src="moontides_api.js"></script>
     <script src="moontides_draw.js"></script>
-    <link rel="stylesheet" type="text/css" href="mystyle.css">
+    <link rel="stylesheet" type="text/css" href="moonstyle.css">
 
 </head>
 
 <body>
+
     <div class="container-fluid">
-        <h1 class="shadow">Moontides</h1>
-        <div class="infobox">
-            Enter year<input id="year_textbox" type="text" name="year" value = "2018">
-            <button onclick="getMoonPhases(document.getElementById('year_textbox').value)">Moon Phases </button>
-            <button onclick="getNewMoons(document.getElementById('year_textbox').value)">New Moons</button><BR>
+        <div class="row">
+            <div class="col-sm-3 col-md-6 col-lg-4">
+                <a href="https://druidnetwork.org/what-is-druidry/learning-resources/perennial/"><img src="living_druidry.png"></a>
+            </div>
         </div>
-        <hr>
 
-        <div> <canvas id="canvas" width="600" height="600" style="background-color:white"></canvas></div>
 
-        <div id="moontides"></div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 col-md-6 col-lg-4">
+                    <h3 class="shadow">Moontides - Dates of the New Moon</h3>
+                    <div class="infobox">
+                        <h4>
+                            <center>
+                        <button onclick="getNewMoonsPrev('year_textbox')"><<</button>
+                        <input id="year_textbox" size="5" type="text" name="year" value = "2018" onkeypress="getNewMoons('year_textbox')">
+                        <button onclick="getNewMoonsNext('year_textbox')">>></button>
+                            </center>
+                        </h4>
+                    </div>
+                    <div id="moontides"></div>
+                </div>
+                <div class="col-sm-9 col-md-6 col-lg-8">
+                       <canvas id="canvas" width="800" height="600" style="background-color:white"></canvas>
+                </div>
+            </div>
+        </div>
 
+
+        <script>
+            var currentYear = new Date().getFullYear()
+            document.getElementById('year_textbox').value = currentYear
+            getNewMoons('year_textbox')
+        </script>
     </div>
 
 

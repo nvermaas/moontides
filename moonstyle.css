@@ -1,5 +1,5 @@
 button {
-    background-image: linear-gradient(to bottom, #f9c56d 25%, #f19224 100%);
+    background-image: linear-gradient(to bottom, #f9c56d 25%, #50392D 100%);
     border: none;
     border-radius: 1em;
     box-shadow: 0 3px 1px rgba(0, 0, 0, 0.4);
@@ -25,17 +25,25 @@ th, td {
 }
 table#geel {
     width: 100%;
-    background-color: #f1f1c1;
+    background-color: #EAFCE8;
 }
 
 h1.shadow{
     text-shadow: 4px 4px 4px #ccc;
 }
 
+h2.shadow{
+    text-shadow: 4px 4px 4px #ccc;
+}
+
+h3.shadow{
+    text-shadow: 4px 4px 4px #ccc;
+}
+
 .infobox {
     padding: 5px 5px 5px 15px;
-    width: 1000px;
-    border: 5px solid #19035D;
+
+    border: 2px solid #19035D;
     -webkit-border-bottom-colors: #200772 #412C84 #3914AF #6A48D7 #876ED7;
     -moz-border-bottom-colors: #200772 #412C84 #3914AF #6A48D7 #876ED7;
     -webkit-border-top-colors: #200772 #412C84 #3914AF #6A48D7 #876ED7;
@@ -46,14 +54,3 @@ h1.shadow{
     -moz-border-right-colors: #200772 #412C84 #3914AF #6A48D7 #876ED7;
 }
 
-/*
-img {
-    opacity: 0.5;
-    filter: alpha(opacity=50);
-}
-
-img:hover {
-    opacity: 1.0;
-    filter: alpha(opacity=100);
-}
-*/

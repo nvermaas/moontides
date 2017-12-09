@@ -54,7 +54,8 @@ function myMoonTidesCB(my_result, my_status) {
 }
 
 // do the ajax api call.
-function getNewMoonsAPI(year) {
+function getNewMoonsAPI(year_tag) {
+    year = parseInt(document.getElementById(year_tag).value)
     console.log("getNewMoonsAPI("+year+")")
     var my_url = moonphases_resource+"?date=1/1/"+year+"&nump=50";
     var html_url = "<a href = \"" + my_url + "\">" + my_url + "</a>";
@@ -69,8 +70,46 @@ function getNewMoonsAPI(year) {
     }).done( myNewMoonsCB );
 }
 
+// do the ajax api call.
+function getNewMoonsPrev(year_tag) {
+    year = parseInt(document.getElementById(year_tag).value) - 1
+    document.getElementById(year_tag).value = year;
+
+    console.log("getNewMoonsPrev("+year+")")
+    var my_url = moonphases_resource+"?date=1/1/"+year+"&nump=50";
+    var html_url = "<a href = \"" + my_url + "\">" + my_url + "</a>";
+
+    // execute an asynchronous GET to the API,
+    // and execute 'myMoonTidesCB' when the results come back.
+    $.ajax({
+        url: my_url,
+        type: 'GET',
+        crossDomain: true,
+        success: function() { console.log('GET completed'); }
+    }).done( myNewMoonsCB );
+}
+
+// do the ajax api call.
+function getNewMoonsNext(year_tag) {
+    year = parseInt(document.getElementById(year_tag).value) + 1
+    document.getElementById(year_tag).value = year;
+
+    console.log("getNewMoonsNext("+year+")")
+    var my_url = moonphases_resource+"?date=1/1/"+year+"&nump=50";
+    var html_url = "<a href = \"" + my_url + "\">" + my_url + "</a>";
+
+    // execute an asynchronous GET to the API,
+    // and execute 'myMoonTidesCB' when the results come back.
+    $.ajax({
+        url: my_url,
+        type: 'GET',
+        crossDomain: true,
+        success: function() { console.log('GET completed'); }
+    }).done( myNewMoonsCB );
+}
+
 // the callback function for the ajax call
-function myNewMoonsCB(my_result, my_status, myFilter) {
+function myNewMoonsCB(my_result, my_status) {
     console.log("myNewMoonsCB(" + my_result + "," + my_status + ")");
 
     // on callback, write the result into the local datamodel
@@ -80,8 +119,8 @@ function myNewMoonsCB(my_result, my_status, myFilter) {
     moontides.addDayOfTheYear();
     moontides.addCourseUnit();
 
-    moontides.drawMoon("canvas")
-
+    year = parseInt(document.getElementById("year_textbox").value);
+    moontides.drawMoon(year, "canvas")
     moontides.showData("moontides");
 
 }
