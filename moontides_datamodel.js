@@ -93,7 +93,6 @@ function getDayOfTheYear(now) {
     var diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
     var oneDay = 1000 * 60 * 60 * 24;
     var day = Math.floor(diff / oneDay);
-    console.log('Day of year: ' + day);
     return day;
 }
 
@@ -106,9 +105,6 @@ function MoonTides(){
 
     this.addJsonResult = function(jsonResult, filterPhase) {
         this.result = jsonResult;
-        // console.log("this.result[0].title: "+this.result[0].title);
-        // console.log("isArray? :"+Array.isArray(this.result))
-        console.log("numphases = "+jsonResult.numphases);
 
         for (i = 0; i < jsonResult.numphases; i++) {
             phase = new Phase();
@@ -262,7 +258,6 @@ function MoonTides(){
         function drawSeasons(context, radius) {
             y = new Date("2017 Dec 21")
             d = getDayOfTheYear(y)
-            console.log('drawSeasons midwinter '+d)
             drawDay(d, 'blue')
 
         }
@@ -306,7 +301,6 @@ function MoonTides(){
 
         function drawMoonDays(myList) {
             for (i = 0; i < myList.length; i++) {
-                console.log('day = '+ myList[i].day)
                 drawDay(myList[i].day, 'darkgreen')
             }
 

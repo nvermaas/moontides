@@ -35,9 +35,12 @@ h1.shadow{
 h2.shadow{
     text-shadow: 4px 4px 4px #ccc;
 }
-
 h3.shadow{
     text-shadow: 4px 4px 4px #ccc;
+}
+h5.under{
+    font-style: italic;
+    color: darkgray;
 }
 
 .infobox {

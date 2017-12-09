@@ -12,12 +12,10 @@ var moonphases_resource = "http://api.usno.navy.mil/moon/phase"
 // === INTERFACE (public functions) ===
 
 function getMoonPhases(year) {
-    console.log("getMoonPhases("+year+")");
     getMoonPhasesAPI(year);
 }
 
 function getNewMoons(year) {
-    console.log("getNewMoons("+year+")");
     getNewMoonsAPI(year);
 }
 
@@ -26,7 +24,6 @@ function getNewMoons(year) {
 
 // do the ajax api call.
 function getMoonPhasesAPI(year) {
-    console.log("getMoonPhasesAPI("+year+")")
     var my_url = moonphases_resource+"?date=1/1/"+year+"&nump=50";
     var html_url = "<a href = \"" + my_url + "\">" + my_url + "</a>";
 
@@ -42,21 +39,18 @@ function getMoonPhasesAPI(year) {
 
 // the callback function for the ajax call
 function myMoonTidesCB(my_result, my_status) {
-    console.log("myMoonTidesCB(" + my_result + "," + my_status + ")");
 
     // on callback, write the result into the local datamodel
     moontides = new MoonTides();
     moontides.addJsonResult(my_result);
 
     moontides.addDayOfTheYear();
-
     moontides.showData("moontides");
 }
 
 // do the ajax api call.
 function getNewMoonsAPI(year_tag) {
     year = parseInt(document.getElementById(year_tag).value)
-    console.log("getNewMoonsAPI("+year+")")
     var my_url = moonphases_resource+"?date=1/1/"+year+"&nump=50";
     var html_url = "<a href = \"" + my_url + "\">" + my_url + "</a>";
 
@@ -94,7 +88,6 @@ function getNewMoonsNext(year_tag) {
     year = parseInt(document.getElementById(year_tag).value) + 1
     document.getElementById(year_tag).value = year;
 
-    console.log("getNewMoonsNext("+year+")")
     var my_url = moonphases_resource+"?date=1/1/"+year+"&nump=50";
     var html_url = "<a href = \"" + my_url + "\">" + my_url + "</a>";
 
@@ -110,8 +103,6 @@ function getNewMoonsNext(year_tag) {
 
 // the callback function for the ajax call
 function myNewMoonsCB(my_result, my_status) {
-    console.log("myNewMoonsCB(" + my_result + "," + my_status + ")");
-
     // on callback, write the result into the local datamodel
     moontides = new MoonTides();
     moontides.addJsonResult(my_result, "New Moon");
