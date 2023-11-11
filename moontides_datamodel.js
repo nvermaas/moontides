@@ -79,6 +79,7 @@ function Phase() {
         this.url = "";
     }
 
+
     this.getShowData = function(){
         myOutput = "<tr><td>" + "<a href = \""+this.url+"\">" +this.name + "</a>" + "</td><td>" + this.date + "</td></tr>";
 
@@ -125,12 +126,12 @@ function MoonTides(){
         for (i = 0; i < this.myList.length; i++) {
             var d = new Date(this.myList[i].date);
             this.myList[i].day = getDayOfTheYear(d);
-       }
+        }
 
-       // check if the array ends with the last day (the numphases of 50 sometimes ends with a new Moon in the next year)
-       while (this.myList[this.myList.length-1].day < this.myList[this.myList.length-2].day) {
+        // check if the array ends with the last day (the numphases of 50 sometimes ends with a new Moon in the next year)
+        while (this.myList[this.myList.length-1].day < this.myList[this.myList.length-2].day) {
             this.myList.pop()
-       }
+        }
     }
 
 
@@ -213,7 +214,7 @@ function MoonTides(){
 
 
     this.drawMoon = function(year, tagOutput) {
-    // https://www.w3schools.com/graphics/canvas_clock_numbers.asp
+        // https://www.w3schools.com/graphics/canvas_clock_numbers.asp
         var canvas = document.getElementById(tagOutput);
         var context = canvas.getContext("2d");
         var radius = canvas.height / 2;
@@ -320,17 +321,17 @@ function MoonTides(){
             context.lineTo(-radius, 0);
             context.stroke();
 
-/*
-            context.beginPath();
-            context.moveTo(factor*radius, factor*radius);
-            context.lineTo(factor*-radius, factor*-radius);
-            context.stroke();
+            /*
+                        context.beginPath();
+                        context.moveTo(factor*radius, factor*radius);
+                        context.lineTo(factor*-radius, factor*-radius);
+                        context.stroke();
 
-            context.beginPath();
-            context.moveTo(factor*-radius, factor*radius);
-            context.lineTo(factor*radius, factor*-radius);
-            context.stroke();
-*/
+                        context.beginPath();
+                        context.moveTo(factor*-radius, factor*radius);
+                        context.lineTo(factor*radius, factor*-radius);
+                        context.stroke();
+            */
         }
 
         function drawWheel(myList) {
@@ -341,7 +342,7 @@ function MoonTides(){
             drawLines(context, radius)
             // drawSeasons()
             drawNumbers(context, radius, myList);
-          }
+        }
 
         function drawImage() {
             var imageObj = new Image();
@@ -352,7 +353,7 @@ function MoonTides(){
                 context.drawImage(imageObj,60, 115, 500, 375); // canvas height = 600
                 // drawClock(this.myList)
             };
-            imageObj.src = 'http://uilennest.net/static/moontides/moon.png';
+            imageObj.src = 'https://uilennest.net/static/moontides/moon.png';
         }
 
         context.clearRect(0, 0, canvas.width, canvas.height);

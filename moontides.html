@@ -4,7 +4,7 @@
     <title>Moontides</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta tag="Nico Vermaas 2017">
+    <meta tag="Nico Vermaas 2018">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
@@ -22,43 +22,43 @@
 
 <body>
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-6 col-lg-4">
+            <a href="https://druidnetwork.org/what-is-druidry/learning-resources/perennial/"><img src="living_druidry.png"></a>
+        </div>
+    </div>
+
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3 col-md-6 col-lg-4">
-                <a href="https://druidnetwork.org/what-is-druidry/learning-resources/perennial/"><img src="living_druidry.png"></a>
+                <h3 class="shadow">Moontides - Dates of the New Moon</h3>
+                <div class="infobox">
+                    <h4>
+                        <center>
+                            <button onclick="getNewMoonsPrev('year_textbox')"><<</button>
+                            <input id="year_textbox" size="5" type="text" name="year" value = "2018" onkeypress="getNewMoons('year_textbox')">
+                            <button onclick="getNewMoonsNext('year_textbox')">>></button>
+                        </center>
+                    </h4>
+                </div>
+                <div id="moontides"></div>
+                <h5 class="under"><i>Nico Vermaas - 2023</i></h5>
+            </div>
+            <div class="col-sm-9 col-md-6 col-lg-8">
+                <canvas id="canvas" width="800" height="600" style="background-color:white"></canvas>
             </div>
         </div>
-
-
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-3 col-md-6 col-lg-4">
-                    <h3 class="shadow">Moontides - Dates of the New Moon</h3>
-                    <div class="infobox">
-                        <h4>
-                            <center>
-                        <button onclick="getNewMoonsPrev('year_textbox')"><<</button>
-                        <input id="year_textbox" size="5" type="text" name="year" value = "2018" onkeypress="getNewMoons('year_textbox')">
-                        <button onclick="getNewMoonsNext('year_textbox')">>></button>
-                            </center>
-                        </h4>
-                    </div>
-                    <div id="moontides"></div>
-                    <h5 class="under"><i>Nico Vermaas - 2017</i></h5>
-                </div>
-                <div class="col-sm-9 col-md-6 col-lg-8">
-                       <canvas id="canvas" width="800" height="600" style="background-color:white"></canvas>
-                </div>
-            </div>
-        </div>
-
-
-        <script>
-            var currentYear = new Date().getFullYear()
-            document.getElementById('year_textbox').value = currentYear
-            getNewMoons('year_textbox')
-        </script>
     </div>
+
+
+    <script>
+        var currentYear = new Date().getFullYear()
+        document.getElementById('year_textbox').value = currentYear
+        getNewMoons('year_textbox')
+    </script>
+</div>
 
 
 

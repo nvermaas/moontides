@@ -5,15 +5,15 @@
 window.onload = function(){
     // initialisation
     // the onload makes sure that all functions in this script file are loaded before the html is rendered
- }
+}
 
-var moonphases_resource = "http://api.usno.navy.mil/moon/phase"
+//var moonphases_resource_old = "http://api.usno.navy.mil/moon/phase"
+
+var moonphases_api_uilennest = "https://uilennest.net/my_astrobase/moonphases" // no cors headers
+//var moonphases_api_uilennest = "https://uilennest.net/homebase/datacenter/moonphases" // no cors headers
+//var moonphases_api_uilennest = "http://localhost:8000/homebase/moonphases" // gives back cors headers!
 
 // === INTERFACE (public functions) ===
-
-function getMoonPhases(year) {
-    getMoonPhasesAPI(year);
-}
 
 function getNewMoons(year) {
     getNewMoonsAPI(year);
@@ -23,36 +23,39 @@ function getNewMoons(year) {
 // === IMPLEMENTATION (private functions) ===
 
 // do the ajax api call.
-function getMoonPhasesAPI(year) {
-    var my_url = moonphases_resource+"?date=1/1/"+year+"&nump=50";
-    var html_url = "<a href = \"" + my_url + "\">" + my_url + "</a>";
+function getNewMoonsAPI(year_tag) {
+    year = parseInt(document.getElementById(year_tag).value)
+
+    var my_url = moonphases_api_uilennest+"?year="+year;
 
     // execute an asynchronous GET to the API,
     // and execute 'myMoonTidesCB' when the results come back.
     $.ajax({
         url: my_url,
         type: 'GET',
+        dataType: 'json',
         crossDomain: true,
         success: function() { console.log('GET completed'); }
-    }).done( myMoonTidesCB );
+    }).done( myNewMoonsCB );
 }
 
-// the callback function for the ajax call
-function myMoonTidesCB(my_result, my_status) {
+// do the xhr api call.
+function getNewMoonsAPI_xhr(year_tag) {
+    year = parseInt(document.getElementById(year_tag).value)
+    var my_url = moonphases_api_uilennest+"?year="+year;
 
-    // on callback, write the result into the local datamodel
-    moontides = new MoonTides();
-    moontides.addJsonResult(my_result);
-
-    moontides.addDayOfTheYear();
-    moontides.showData("moontides");
+    // execute an asynchronous GET to the API,
+    // and execute 'myMoonTidesCB' when the results come back.
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", my_url, true);
+    xhr.onload = myMoonTidesCB;
+    xhr.send();
 }
 
 // do the ajax api call.
-function getNewMoonsAPI(year_tag) {
+function getNewMoonsAPI_ajax(year_tag) {
     year = parseInt(document.getElementById(year_tag).value)
-    var my_url = moonphases_resource+"?date=1/1/"+year+"&nump=50";
-    var html_url = "<a href = \"" + my_url + "\">" + my_url + "</a>";
+    var my_url = moonphases_api_uilennest+"?year="+year;
 
     // execute an asynchronous GET to the API,
     // and execute 'myMoonTidesCB' when the results come back.
@@ -64,41 +67,35 @@ function getNewMoonsAPI(year_tag) {
     }).done( myNewMoonsCB );
 }
 
-// do the ajax api call.
+// do the fetch api call.
+function getNewMoonsAPI_fetch(year_tag) {
+    year = parseInt(document.getElementById(year_tag).value)
+    var my_url = moonphases_api_uilennest+"?year="+year;
+
+    // execute an asynchronous GET to the API,
+    // and execute 'myMoonTidesCB' when the results come back.
+    fetch(my_url, {mode : 'cors'})
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            myNewMoonsCB(data)
+        });
+}
+
+
+// do a ajax api call.
 function getNewMoonsPrev(year_tag) {
     year = parseInt(document.getElementById(year_tag).value) - 1
     document.getElementById(year_tag).value = year;
-
-    console.log("getNewMoonsPrev("+year+")")
-    var my_url = moonphases_resource+"?date=1/1/"+year+"&nump=50";
-    var html_url = "<a href = \"" + my_url + "\">" + my_url + "</a>";
-
-    // execute an asynchronous GET to the API,
-    // and execute 'myMoonTidesCB' when the results come back.
-    $.ajax({
-        url: my_url,
-        type: 'GET',
-        crossDomain: true,
-        success: function() { console.log('GET completed'); }
-    }).done( myNewMoonsCB );
+    getNewMoons(year_tag)
 }
 
 // do the ajax api call.
 function getNewMoonsNext(year_tag) {
     year = parseInt(document.getElementById(year_tag).value) + 1
     document.getElementById(year_tag).value = year;
-
-    var my_url = moonphases_resource+"?date=1/1/"+year+"&nump=50";
-    var html_url = "<a href = \"" + my_url + "\">" + my_url + "</a>";
-
-    // execute an asynchronous GET to the API,
-    // and execute 'myMoonTidesCB' when the results come back.
-    $.ajax({
-        url: my_url,
-        type: 'GET',
-        crossDomain: true,
-        success: function() { console.log('GET completed'); }
-    }).done( myNewMoonsCB );
+    getNewMoons(year_tag)
 }
 
 // the callback function for the ajax call
@@ -113,5 +110,10 @@ function myNewMoonsCB(my_result, my_status) {
     year = parseInt(document.getElementById("year_textbox").value);
     moontides.drawMoon(year, "canvas")
     moontides.showData("moontides");
+}
 
+// the callback function for the ajax call
+function myNewMoonsCB_testing(my_result, my_status) {
+    // on callback, write the result into the local datamodel
+    alert(my_result)
 }
