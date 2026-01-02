@@ -40,7 +40,7 @@
 
 const names = ["Star Frost", "White Waking", "Wind Tossed", "Flower Shower", "White Lady", "Love Bright", "Field Poppy", "Claim Song", "Green Still", "Blood Berry", "Leaf Dance", "Fire Friend", "Star Frost"]
 
-const urls = [
+const urls_old = [
     "https://druidnetwork.org/what-is-druidry/learning-resources/perennial/unit-one/",
     "https://druidnetwork.org/what-is-druidry/learning-resources/perennial/unit-two/",
     "https://druidnetwork.org/what-is-druidry/learning-resources/perennial/unit-three/",
@@ -54,6 +54,22 @@ const urls = [
     "https://druidnetwork.org/what-is-druidry/learning-resources/perennial/unit-eleven/",
     "https://druidnetwork.org/what-is-druidry/learning-resources/perennial/unit-twelve/",
     "https://druidnetwork.org/what-is-druidry/learning-resources/perennial/unit-one/"
+]
+
+const urls = [
+    "https://druidnetwork.org/expressions-of-druidry/learning-resources/a-perennial-course-in-living-druidry/pcld2-star-frost-moon/",
+    "https://druidnetwork.org/expressions-of-druidry/learning-resources/a-perennial-course-in-living-druidry/pcld2-white-waking-moon/",
+    "https://druidnetwork.org/expressions-of-druidry/learning-resources/a-perennial-course-in-living-druidry/pcld3-wind-tossed-moon/",
+    "https://druidnetwork.org/expressions-of-druidry/learning-resources/a-perennial-course-in-living-druidry/pcld4-flower-shower-moon/",
+    "https://druidnetwork.org/expressions-of-druidry/learning-resources/a-perennial-course-in-living-druidry/pcld5-white-lady-moon/",
+    "https://druidnetwork.org/expressions-of-druidry/learning-resources/a-perennial-course-in-living-druidry/pcld6-love-bright-moon/",
+    "https://druidnetwork.org/expressions-of-druidry/learning-resources/a-perennial-course-in-living-druidry/pcld7-field-poppy-moon/",
+    "https://druidnetwork.org/expressions-of-druidry/learning-resources/a-perennial-course-in-living-druidry/pcld8-claim-song-moon/",
+    "https://druidnetwork.org/expressions-of-druidry/learning-resources/a-perennial-course-in-living-druidry/pcld9-green-still-moon/",
+    "https://druidnetwork.org/expressions-of-druidry/learning-resources/a-perennial-course-in-living-druidry/pcld10-blood-berry-moon/",
+    "https://druidnetwork.org/expressions-of-druidry/learning-resources/a-perennial-course-in-living-druidry/pcld11-leaf-dance-moon/",
+    "https://druidnetwork.org/expressions-of-druidry/learning-resources/a-perennial-course-in-living-druidry/pcld12-fire-friend-moon/",
+    "https://druidnetwork.org/expressions-of-druidry/learning-resources/a-perennial-course-in-living-druidry/pcld2-star-frost-moon/"
 ]
 
 function getTableHeader() {
